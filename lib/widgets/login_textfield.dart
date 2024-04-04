@@ -1,14 +1,16 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:medic/globles/pallets.dart';
 
 class LoginTextField extends StatelessWidget {
   final String hintText;
   final String lable;
+  final TextEditingController controller;
+
   const LoginTextField({
     super.key,
     required this.hintText,
     required this.lable,
+    required this.controller,
   });
 
   @override
@@ -25,12 +27,15 @@ class LoginTextField extends StatelessWidget {
           ),
         ),
         const SizedBox(
-          height: 16,
+          height: 8,
         ),
-        SizedBox(
-          width: max(250, 350),
+        Container(
           height: 50,
+          constraints: const BoxConstraints(
+            maxWidth: 350,
+          ),
           child: TextFormField(
+            controller: controller,
             decoration: InputDecoration(
               contentPadding:
                   const EdgeInsets.symmetric(vertical: 15, horizontal: 15),

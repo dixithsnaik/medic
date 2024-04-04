@@ -1,26 +1,31 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
+import 'package:medic/controllers/sign_in_controller.dart';
 import 'package:medic/globles/pallets.dart';
-import 'package:medic/screens/details_screen.dart';
-import 'package:medic/screens/login.dart';
+
 import 'package:medic/widgets/back_button.dart';
 
-class OtpScreen extends StatelessWidget {
+class OtpScreen extends StatefulWidget {
   const OtpScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
+  State<OtpScreen> createState() => _OtpScreenState();
+}
 
+class _OtpScreenState extends State<OtpScreen> {
+  final signInController = Get.find<SignInController>();
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.only(top: 20),
           child: Container(
-            width: size.width,
-            height: size.height,
+            width: double.infinity,
             decoration: const BoxDecoration(
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(30),
@@ -71,19 +76,17 @@ class OtpScreen extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            otpFilld(context, 0),
-                            const SizedBox(
-                              width: 12,
-                            ),
-                            otpFilld(context, 1),
-                            const SizedBox(
-                              width: 12,
-                            ),
-                            otpFilld(context, 2),
-                            const SizedBox(
-                              width: 12,
-                            ),
-                            otpFilld(context, 3),
+                            otpFilld(
+                                context, 0, signInController.otpControllers[0]),
+                            const SizedBox(width: 12),
+                            otpFilld(
+                                context, 1, signInController.otpControllers[1]),
+                            const SizedBox(width: 12),
+                            otpFilld(
+                                context, 2, signInController.otpControllers[2]),
+                            const SizedBox(width: 12),
+                            otpFilld(
+                                context, 3, signInController.otpControllers[3]),
                           ],
                         ),
                       ),
@@ -137,61 +140,39 @@ class OtpScreen extends StatelessWidget {
                       children: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            KeyPadButton(
-                              text: '1',
+                          children: List.generate(
+                            3,
+                            (index) => KeyPadButton(
+                              text: "${index + 1}",
                               ontap: () {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) => const DetailsScreen(),
-                                  ),
-                                );
+                                signInController.updateOtpField(index + 1);
                               },
                             ),
-                            KeyPadButton(
-                              text: '2',
-                              ontap: () {},
-                            ),
-                            KeyPadButton(
-                              text: '3',
-                              ontap: () {},
-                            ),
-                          ],
+                          ),
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            KeyPadButton(
-                              text: '4',
-                              ontap: () {},
+                          children: List.generate(
+                            3,
+                            (index) => KeyPadButton(
+                              text: "${index + 4}",
+                              ontap: () {
+                                signInController.updateOtpField(index + 4);
+                              },
                             ),
-                            KeyPadButton(
-                              text: '5',
-                              ontap: () {},
-                            ),
-                            KeyPadButton(
-                              text: '6',
-                              ontap: () {},
-                            ),
-                          ],
+                          ),
                         ),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            KeyPadButton(
-                              text: '7',
-                              ontap: () {},
-                            ),
-                            KeyPadButton(
-                              text: '8',
-                              ontap: () {},
-                            ),
-                            KeyPadButton(
-                              text: '9',
-                              ontap: () {},
-                            ),
-                          ],
-                        ),
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: List.generate(
+                              3,
+                              (index) => KeyPadButton(
+                                text: "${index + 7}",
+                                ontap: () {
+                                  signInController.updateOtpField(index + 7);
+                                },
+                              ),
+                            )),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
@@ -203,16 +184,14 @@ class OtpScreen extends StatelessWidget {
                             KeyPadButton(
                               text: '0',
                               ontap: () {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) => const DetailsScreen(),
-                                  ),
-                                );
+                                signInController.updateOtpField(0);
                               },
                             ),
                             KeyPadButton(
                               text: '<',
-                              ontap: () {},
+                              ontap: () {
+                                signInController.backSpace();
+                              },
                             ),
                           ],
                         ),
@@ -228,30 +207,21 @@ class OtpScreen extends StatelessWidget {
     );
   }
 
-  SizedBox otpFilld(BuildContext context, int index) {
+  SizedBox otpFilld(
+      BuildContext context, int index, TextEditingController controller) {
     return SizedBox(
       height: 60,
       width: 45,
       child: TextField(
-        onChanged: (
-          value,
-        ) {
-          if (index != 3) {
-            if (value.length == 1) {
-              index++;
-
-              FocusScope.of(context).nextFocus();
-            }
-          } else if (index == 3) {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => const DetailsScreen(),
-              ),
-            );
-          }
+        controller: controller,
+        onChanged: (value) {
+          signInController.textFieldOnChanged(index, value);
         },
+        enabled: false,
         decoration: InputDecoration(
-          disabledBorder: InputBorder.none,
+          disabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
           fillColor: whiteColor,
           filled: true,
           focusColor: whiteColor,
