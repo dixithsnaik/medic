@@ -1,81 +1,93 @@
 class UserModel {
-  final String patientName;
-  final String emailAddress;
+  final String name;
+  final String email;
   final String aadharNumber;
   final String mobileNumber;
-  final String dob;
+  final String userDob;
   final String profession;
-  final String gender;
+  final String sex;
   final String bloodGroup;
   final String height;
   final String weight;
+  final String patientId;
+  // final String profilePicture;
 
   UserModel({
-    required this.patientName,
-    required this.emailAddress,
+    required this.name,
+    required this.email,
     required this.aadharNumber,
     required this.mobileNumber,
-    required this.dob,
+    required this.userDob,
     required this.profession,
-    required this.gender,
+    required this.sex,
     required this.bloodGroup,
     required this.height,
     required this.weight,
+    required this.patientId,
+    // required this.profilePicture,
   });
 
   Map<String, dynamic> toMap() {
     return {
-      'patientName': patientName,
-      'emailAddress': emailAddress,
+      'name': name,
+      'email': email,
       'aadharNumber': aadharNumber,
       'mobileNumber': mobileNumber,
-      'dob': dob,
-      'profession': profession,
-      'gender': gender,
+      'user_dob': userDob,
+      'proffession': profession,
+      'sex': sex,
       'bloodGroup': bloodGroup,
       'height': height,
       'weight': weight,
+      'patient_id': patientId,
+      // 'profilePicture': profilePicture,
     };
   }
 
   factory UserModel.fromMap(Map<String, dynamic> map) {
     return UserModel(
-      patientName: map['patientName'],
-      emailAddress: map['emailAddress'],
+      name: map['name'],
+      email: map['email'],
       aadharNumber: map['aadharNumber'],
       mobileNumber: map['mobileNumber'],
-      dob: map['dob'],
-      profession: map['profession'],
-      gender: map['gender'],
+      userDob: map['user_dob'],
+      profession: map['proffession'],
+      sex: map['sex'],
       bloodGroup: map['bloodGroup'],
       height: map['height'],
       weight: map['weight'],
+      patientId: map['patient_id'],
+      // profilePicture: map['profilePicture'],
     );
   }
 
   UserModel copyWith({
-    String? patientName,
-    String? emailAddress,
+    String? name,
+    String? email,
     String? aadharNumber,
     String? mobileNumber,
-    String? dob,
+    String? userDob,
     String? profession,
-    String? gender,
+    String? sex,
     String? bloodGroup,
     String? height,
     String? weight,
+    String? patientId,
+    // String? profilePicture,
   }) {
     return UserModel(
-      patientName: patientName ?? this.patientName,
-      emailAddress: emailAddress ?? this.emailAddress,
+      name: name ?? this.name,
+      email: email ?? this.email,
       aadharNumber: aadharNumber ?? this.aadharNumber,
       mobileNumber: mobileNumber ?? this.mobileNumber,
-      dob: dob ?? this.dob,
+      userDob: userDob ?? this.userDob,
       profession: profession ?? this.profession,
-      gender: gender ?? this.gender,
+      sex: sex ?? this.sex,
       bloodGroup: bloodGroup ?? this.bloodGroup,
       height: height ?? this.height,
       weight: weight ?? this.weight,
+      patientId: patientId ?? this.patientId,
+      // profilePicture: profilePicture ?? this.profilePicture,
     );
   }
 }

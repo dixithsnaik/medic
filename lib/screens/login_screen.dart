@@ -17,7 +17,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Scaffold( 
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.only(top: 20),
@@ -61,15 +61,14 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 36),
                 LoginTextField(
-                  hintText: 'medic@domain.com',
                   lable: 'Email Address',
                   controller: signInController.emailController,
                 ),
                 const SizedBox(height: 12),
                 LoginTextField(
-                  hintText: 'Full Name',
-                  lable: 'Name',
-                  controller: signInController.nameController,
+                  isPhoneNumber: true,
+                  lable: 'Phone Number',
+                  controller: signInController.phoneNumberController,
                 ),
                 const SizedBox(height: 24),
                 Container(
@@ -118,7 +117,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(height: 36),
                 CustomButton(
                   ontap: () {
-                    signInController.isFormValid();
+                    signInController.isSignInFormValid();
                   },
                   lable: 'Submit',
                 ),

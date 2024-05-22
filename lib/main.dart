@@ -20,6 +20,7 @@ class MyApp extends StatelessWidget {
       initialRoute: "/",
       onGenerateRoute: NavigationController.onGenerateRoute,
       theme: ThemeData(
+        scaffoldBackgroundColor: const Color(0XFFFBFBFB),
         textTheme: GoogleFonts.poppinsTextTheme(
           Theme.of(context).textTheme,
         ),

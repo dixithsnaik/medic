@@ -4,7 +4,15 @@ import 'package:medic/globles/pallets.dart';
 class CustomButton extends StatelessWidget {
   final VoidCallback ontap;
   final String lable;
-  const CustomButton({super.key, required this.lable, required this.ontap});
+  final Color fillColor;
+  final Color textColor;
+  const CustomButton({
+    super.key,
+    required this.lable,
+    required this.ontap,
+    this.fillColor = whiteColor,
+    this.textColor = mainColor,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -14,15 +22,15 @@ class CustomButton extends StatelessWidget {
         width: 200,
         height: 50,
         decoration: BoxDecoration(
-          color: whiteColor,
+          color: fillColor,
           borderRadius: BorderRadius.circular(10),
         ),
         child: Center(
           child: Text(
             lable,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 20,
-              color: mainColor,
+              color: textColor,
               fontWeight: FontWeight.w600,
             ),
           ),

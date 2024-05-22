@@ -1,12 +1,15 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:medic/globles/pallets.dart';
 
 class CustomTextField extends StatelessWidget {
   final String hintText;
   final String lable;
+  final TextEditingController controller;
   const CustomTextField({
     super.key,
+    required this.controller,
     required this.hintText,
     required this.lable,
   });
@@ -34,9 +37,10 @@ class CustomTextField extends StatelessWidget {
               color: mainColor,
             ),
           ),
-          width: max(250, 350),
+          width: 350,
           height: 50,
           child: TextFormField(
+            controller: controller,
             decoration: InputDecoration(
               contentPadding:
                   const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
